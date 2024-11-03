@@ -38,7 +38,7 @@ jobs:
         version: ${{ steps.previoustag.outputs.tag }}
         
     - name: Print next versions formats
-      run: echo '${{ toJSON(semvers.outputs) }}'
+      run: echo '${{ toJSON(steps.semvers.outputs) }}'
   
         
     - name: Set up JDK 17
