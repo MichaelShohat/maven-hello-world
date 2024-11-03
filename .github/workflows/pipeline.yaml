@@ -37,11 +37,14 @@ jobs:
       with:
         version: ${{ steps.previoustag.outputs.tag }}
         
-#    - name: Print next versions formats
+#    - name: Print next versions formats, all of them (major, minor, patch) and with v in the beginning
 #      run: echo '${{ toJSON(steps.semvers.outputs) }}'
+    - name: Set next patch version
+      run: echo "{NEXT_PATCH_VERSION}=${{ steps.semvers.outputs.patch }}" >> "$GITHUB_ENV"
+      
     - name: Print next patch version
-      run: echo '${{ steps.semvers.outputs.patch }}'
-        
+      run: echo "${{ NEXT_PATCH_VERSION }}"
+      
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
