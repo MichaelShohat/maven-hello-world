@@ -40,7 +40,7 @@ jobs:
 #    - name: Print next versions formats, all of them (major, minor, patch) and with v in the beginning
 #      run: echo '${{ toJSON(steps.semvers.outputs) }}'
     - name: Set next patch version
-      run: echo "{NEXT_PATCH_VERSION}=${{ steps.semvers.outputs.patch }}" >> "$GITHUB_ENV"
+      run: echo "NEXT_PATCH_VERSION=${{ steps.semvers.outputs.patch }}" >> "$GITHUB_ENV"
       
     - name: Print next patch version
       run: echo "${{ NEXT_PATCH_VERSION }}"
