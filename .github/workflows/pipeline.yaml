@@ -37,7 +37,7 @@ jobs:
       with:
         version: ${{ steps.previoustag.outputs.tag }}
     - name: Print next versions formats
-      run: echo ${{steps.semvers.outputs}}
+      run: echo toJson(${{steps.semvers.outputs}})
         
     - name: Set up JDK 17
       uses: actions/setup-java@v4
