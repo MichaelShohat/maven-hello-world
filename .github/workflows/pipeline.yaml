@@ -72,12 +72,12 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         load: true
-        tags: "myapp:${next_patch_version}"
+        tags: "myapp:$next_patch_version"
         file: myapp/Dockerfile
       
     - name: Test docker image
       run: |
-        docker run --rm "myapp:${next_patch_version}"
+        docker run --rm "myapp:$next_patch_version"
 
     - name: Upload artifact - src code
       uses:
