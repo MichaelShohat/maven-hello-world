@@ -61,7 +61,24 @@ jobs:
     - name: Build with Maven
       run: mvn package
       working-directory: myapp
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
     
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build and export to Docker
+      uses: docker/build-push-action@v6
+      with:
+        load: true
+        tags: "myapp:${next_patch_version}"
+        file: myapp/Dockerfile
+      
+    - name: Test docker image
+      run: |
+        docker run --rm "myapp:${next_patch_version}"
+
     - name: Upload artifact - src code
       uses:
         actions/upload-artifact@v4
@@ -69,7 +86,7 @@ jobs:
         name: src folder
         path: | 
           myapp/src
-          
+
     - name: Upload artifact - target
       uses:
         actions/upload-artifact@v4
