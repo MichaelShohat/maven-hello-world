@@ -62,6 +62,22 @@ jobs:
       run: mvn package
       working-directory: myapp
     
+    - name: Upload artifact - src code
+      uses:
+        actions/upload-artifact@v4
+      with: 
+        name: src folder
+        path: | 
+          myapp/src
+          
+    - name: Upload artifact - target
+      uses:
+        actions/upload-artifact@v4
+      with:
+        name: target folder
+        path: |
+          myapp/target
+
     - name: Push the updated pom.xml
       run: |
         git config --local user.name "Actions Run"
