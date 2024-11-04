@@ -68,4 +68,6 @@ jobs:
         git config --local user.email "michaelsho9@gmail.com"
         git add myapp/pom.xml
         git commit -m "Updated the app version in pom.xml [skip ci]"
+        git tag ${next_patch_version}
         git push
+        git push --tags
