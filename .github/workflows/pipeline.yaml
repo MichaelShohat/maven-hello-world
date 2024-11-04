@@ -10,7 +10,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "master", "*"]
+    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
@@ -61,3 +61,11 @@ jobs:
     - name: Build with Maven
       run: mvn package
       working-directory: myapp
+    
+    - name: Push the updated pom.xml
+      run: |
+        git config --local user.name "Actions Run"
+        git config --local user.email "michaelsho9@gmail.com"
+        git add myapp/pom.xml
+        git commit -m "Updated the app version in pom.xml [skip ci]"
+        git push
