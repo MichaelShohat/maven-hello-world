@@ -48,7 +48,8 @@ jobs:
 
     - name: Replace the version in pom.xml
       run: |
-        sed -i "0,/<version>.*<\/version>/s/<version>.*<\/version>/<version>${next_patch_version}<\/version>/"
+        sed -i "0,/<version>.*<\/version>/s/<version>.*<\/version>/<version>${next_patch_version}<\/version>/" pom.xml
+      working-directory: myapp
       
     - name: Set up JDK 17
       uses: actions/setup-java@v4
