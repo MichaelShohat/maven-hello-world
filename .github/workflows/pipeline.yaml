@@ -74,6 +74,7 @@ jobs:
         load: true
         tags: "myapp:${{  env.next_patch_version  }}"
         file: myapp/Dockerfile
+        context: myapp/
       
     - name: Test docker image
       run: |
