@@ -4,7 +4,7 @@ COPY . /myapp
 RUN mvn package
 
 FROM eclipse-temurin:17-jre-focal AS runner
+USER 1000
 WORKDIR /myapp
 COPY --from=builder /myapp /myapp
-ENTRYPOINT ["java", "-cp", "./target/classes/", "com.myapp.App"]
-USER 1000
+ENTRYPOINT ["sh", "-c", "java -cp ./target/classes/ com.myapp.App && tail -f /dev/null"]
