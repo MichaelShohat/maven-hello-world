@@ -69,7 +69,7 @@ jobs:
     - name: Test docker image and the target folder to upload as an artifact
       run: |
         docker run --name myapp "myapp:${{  env.next_patch_version  }}"
-        docker cp run:/myapp/target ./myapp
+        docker cp myapp:/myapp/target ./myapp
 
 
 
