@@ -50,17 +50,6 @@ jobs:
       run: |
         sed -i "0,/<version>.*<\/version>/s/<version>.*<\/version>/<version>${next_patch_version}<\/version>/" pom.xml
       working-directory: myapp
-      
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-        
-    - name: Build with Maven
-      run: mvn package
-      working-directory: myapp
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
@@ -75,12 +64,14 @@ jobs:
         tags: "myapp:${{  env.next_patch_version  }}"
         file: myapp/Dockerfile
         context: myapp/
-        build-args: |
-          "JAR_VERSION=${{  env.next_patch_version  }}"
+        
       
-    - name: Test docker image
+    - name: Test docker image and the target folder to upload as an artifact
       run: |
-        docker run --rm "myapp:${{  env.next_patch_version  }}"
+        docker run --name myapp "myapp:${{  env.next_patch_version  }}"
+        docker cp run:/myapp/target ./myapp
+
+
 
     - name: Upload artifact - src code
       uses:
