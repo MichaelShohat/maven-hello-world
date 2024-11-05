@@ -77,7 +77,9 @@ jobs:
         push: true
         file: myapp/Dockerfile
         context: myapp/
-        tags: "${{ secrets.DOCKER_USERNAME }}/myapp:${{  env.next_patch_version  }}","${{ secrets.DOCKER_USERNAME }}/myapp:latest"
+        tags: |
+          "${{ secrets.DOCKER_USERNAME }}/myapp:${{  env.next_patch_version  }}"
+          "${{ secrets.DOCKER_USERNAME }}/myapp:latest"
         labels: ${{ steps.meta.outputs.labels }}
         
         
