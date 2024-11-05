@@ -1,5 +1,5 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
   name: {{ include "myapp-chart.fullname" . }}
   labels:
@@ -8,9 +8,6 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
-  selector:
-    matchLabels:
-      {{- include "myapp-chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -30,6 +27,7 @@ spec:
       serviceAccountName: {{ include "myapp-chart.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      restartPolicy: "OnFailure"
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
