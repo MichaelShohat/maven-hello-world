@@ -83,7 +83,7 @@ jobs:
       
     - name: Test docker image and the target folder to upload as an artifact
       run: |
-        docker run --name myapp "${{ secrets.DOCKER_USERNAME }}/myapp:${{  env.next_patch_version  }}"
+        docker run --name myapp --pull always "${{ secrets.DOCKER_USERNAME }}/myapp:${{  env.next_patch_version  }}"
         docker cp myapp:/myapp/target ./myapp
 
     - name: Upload artifact - src code
