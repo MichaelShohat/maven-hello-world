@@ -74,17 +74,18 @@ jobs:
       with:
         load: true
         push: true
-        # tags: "myapp:${{  env.next_patch_version  }}"
         file: myapp/Dockerfile
         context: myapp/
-        tags: ${{ steps.meta.outputs.tags }}
+        tags: "${{ secrets.DOCKER_USERNAME }}/myapp:${{  env.next_patch_version  }}"
         labels: ${{ steps.meta.outputs.labels }}
+        
         
       
     - name: Test docker image and the target folder to upload as an artifact
       run: |
-        docker run --name myapp "myapp:${{  env.next_patch_version  }}"
+        docker run --name myapp "${{ secrets.DOCKER_USERNAME }}/myapp:${{  env.next_patch_version  }}"
         docker cp myapp:/myapp/target ./myapp
+
     - name: Upload artifact - src code
       uses:
         actions/upload-artifact@v4
