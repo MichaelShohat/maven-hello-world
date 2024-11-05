@@ -7,4 +7,4 @@ FROM eclipse-temurin:17-jre-focal AS runner
 USER 1000
 WORKDIR /myapp
 COPY --from=builder /myapp /myapp
-ENTRYPOINT ["sh", "-c", "java -cp ./target/classes/ com.myapp.App && tail -f /dev/null"]
+ENTRYPOINT ["sh", "-c", "java -cp ./target/classes/ com.myapp.App && return 0"]
