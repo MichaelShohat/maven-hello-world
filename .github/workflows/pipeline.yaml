@@ -51,6 +51,18 @@ jobs:
         sed -i "0,/<version>.*<\/version>/s/<version>.*<\/version>/<version>${next_patch_version}<\/version>/" pom.xml
       working-directory: myapp
 
+    - name: Log in to Docker Hub
+      uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+      with:
+        images: my-docker-hub-namespace/my-docker-hub-repository
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
     
@@ -61,18 +73,18 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         load: true
-        tags: "myapp:${{  env.next_patch_version  }}"
+        push: true
+        # tags: "myapp:${{  env.next_patch_version  }}"
         file: myapp/Dockerfile
         context: myapp/
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
         
       
     - name: Test docker image and the target folder to upload as an artifact
       run: |
         docker run --name myapp "myapp:${{  env.next_patch_version  }}"
         docker cp myapp:/myapp/target ./myapp
-
-
-
     - name: Upload artifact - src code
       uses:
         actions/upload-artifact@v4
