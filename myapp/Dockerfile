@@ -5,5 +5,5 @@ ARG JAR_VERSION
 ENV JAR_VERSION = ${JAR_VERSION}
 ENV JAVA_HOME=/src/mymaven/target
 WORKDIR /src/mymaven/target
-ENTRYPOINT [ "entrypoint.sh" ]
+ENTRYPOINT [ "/src/mymaven/target/entrypoint.sh" ]
 USER 1000
