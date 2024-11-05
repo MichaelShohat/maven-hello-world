@@ -1,5 +1,14 @@
 [![Java CI with Maven and a multi-stage docker build](https://github.com/MichaelShohat/maven-hello-world/actions/workflows/pipeline.yaml/badge.svg)](https://github.com/MichaelShohat/maven-hello-world/actions/workflows/pipeline.yaml)
 
+# Links and stuff
+Helm chart to deploy a job that prints a message for the home world
+
+`https://hub.docker.com/repository/docker/michaelshohat/myapp-chart/tags`
+
+To pull the image I built use
+
+`docker pull michaelshohat/myapp:latest`
+
 # A simple, minimal Maven example: hello world
 
 To create the files in this git repo we've already run `mvn archetype:generate` from http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
